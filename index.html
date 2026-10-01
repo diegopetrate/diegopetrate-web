@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:#f5f5f3;color:#141414;font-family:'Hanken Grotesk','Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+a{color:#141414;text-decoration:none}
+a:hover{color:oklch(0.52 0.12 40)}
+*{box-sizing:border-box}
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:20;background:rgba(245,245,243,0.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #dadad7">
+  <div style="max-width:1600px;margin:0 auto;padding:14px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <a href="#top" onClick="{{ closeMenu }}" style="display:flex;align-items:baseline;gap:8px;font-weight:600;font-size:17px;letter-spacing:-0.01em;white-space:nowrap"><span style="font-weight:400;color:#6a6a68">architectures</span> diego petrate</a>
+    <sc-if value="{{ desk }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;gap:clamp(16px,3vw,36px)">
+        <nav style="display:flex;gap:clamp(14px,2.4vw,30px);font-size:15px">
+          <a href="#obras">{{ t.navWork }}</a>
+          <a href="#estudio">{{ t.navStudio }}</a>
+          <a href="#trayectoria">{{ t.navCareer }}</a>
+          <a href="#docencia">{{ t.navTeach }}</a>
+          <a href="#contacto">{{ t.navContact }}</a>
+        </nav>
+        <div style="display:flex;border:1px solid #141414">
+          <button onClick="{{ setEs }}" style="{{ esBtn }}">ES</button>
+          <button onClick="{{ setEn }}" style="{{ enBtn }}">EN</button>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ mob }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="height:44px;width:44px;margin-right:-10px;padding:0;border:none;background:transparent;color:#141414;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px">
+        <sc-for list="{{ burger }}" as="l" hint-placeholder-count="3"><span style="{{ l.style }}"></span></sc-for>
+      </button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="border-top:1px solid #dadad7;padding:8px 20px 24px;display:flex;flex-direction:column;height:calc(100svh - 62px);background:#f5f5f3">
+      <nav style="display:flex;flex-direction:column">
+        <a href="#obras" onClick="{{ closeMenu }}" style="padding:14px 0;border-bottom:1px solid #dadad7;font-size:30px;font-weight:500;letter-spacing:-0.02em">{{ t.navWork }}</a>
+        <a href="#estudio" onClick="{{ closeMenu }}" style="padding:14px 0;border-bottom:1px solid #dadad7;font-size:30px;font-weight:500;letter-spacing:-0.02em">{{ t.navStudio }}</a>
+        <a href="#trayectoria" onClick="{{ closeMenu }}" style="padding:14px 0;border-bottom:1px solid #dadad7;font-size:30px;font-weight:500;letter-spacing:-0.02em">{{ t.navCareer }}</a>
+        <a href="#docencia" onClick="{{ closeMenu }}" style="padding:14px 0;border-bottom:1px solid #dadad7;font-size:30px;font-weight:500;letter-spacing:-0.02em">{{ t.navTeach }}</a>
+        <a href="#contacto" onClick="{{ closeMenu }}" style="padding:14px 0;border-bottom:1px solid #dadad7;font-size:30px;font-weight:500;letter-spacing:-0.02em">{{ t.navContact }}</a>
+      </nav>
+      <div style="display:flex;align-self:flex-start;border:1px solid #141414;margin-top:24px">
+        <button onClick="{{ setEs }}" style="{{ esBtnL }}">ES</button>
+        <button onClick="{{ setEn }}" style="{{ enBtnL }}">EN</button>
+      </div>
+    </div>
+  </sc-if>
+</header>
+
+<section id="top" data-screen-label="Home" style="{{ heroStyle }}">
+  <sc-for list="{{ heroSlides }}" as="s" hint-placeholder-count="1"><img src="{{ s.src }}" alt="" style="{{ s.style }}"></sc-for>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(10,10,10,0.62) 0%,rgba(10,10,10,0.18) 38%,rgba(10,10,10,0) 60%)"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;pointer-events:none;max-width:1600px;margin:0 auto;padding:0 clamp(20px,4vw,48px) clamp(28px,4vw,48px);display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;color:#fafaf8">
+    <h1 style="margin:0;font-weight:500;font-size:clamp(56px,11vw,184px);line-height:0.86;letter-spacing:-0.05em">diego<br>petrate</h1>
+    <div style="display:flex;flex-direction:column;gap:4px;font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:left;padding-bottom:8px">
+      <span>{{ heroCapA }}</span>
+      <span>{{ heroCapB }}</span>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Intro" style="max-width:1600px;margin:0 auto;padding:clamp(64px,9vw,128px) clamp(20px,4vw,48px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(24px,4vw,64px);align-items:end">
+    <p style="margin:0;font-weight:500;font-size:clamp(30px,3.8vw,56px);line-height:1.04;letter-spacing:-0.03em;text-wrap:balance">{{ t.heroTitle }}</p>
+    <div style="display:flex;flex-direction:column;gap:22px;max-width:460px">
+      <p style="margin:0;font-size:18px;line-height:1.55;color:#3b3b3a;text-wrap:pretty">{{ t.heroText }}</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#obras" style="padding:13px 22px;background:#141414;color:#f5f5f3;font-size:15px;font-weight:500" style-hover="background:oklch(0.52 0.12 40);color:#f5f5f3">{{ t.ctaWork }}</a>
+        <a href="#contacto" style="padding:12px 21px;border:1px solid #141414;font-size:15px;font-weight:500">{{ t.navContact }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="obras" data-screen-label="Obras" style="max-width:1600px;margin:0 auto;padding:clamp(72px,10vw,140px) clamp(20px,4vw,48px) 0">
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;border-bottom:1px solid #141414;padding-bottom:18px">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <h2 style="margin:0;font-weight:500;font-size:clamp(34px,4.4vw,64px);letter-spacing:-0.035em">{{ t.navWork }}</h2>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6a6a68">{{ countLabel }}</span>
+    </div>
+    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+          <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;border:1px solid #141414">
+        <button onClick="{{ setGrid }}" style="{{ gridBtn }}">{{ t.grid }}</button>
+        <button onClick="{{ setIndex }}" style="{{ indexBtn }}">{{ t.index }}</button>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:56px 28px;padding-top:36px">
+      <sc-for list="{{ visible }}" as="p" hint-placeholder-count="6">
+        <article style="display:flex;flex-direction:column;gap:14px">
+          <div style="position:relative;width:100%;aspect-ratio:4/3;background:#e7e7e4">
+            <img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy" style="position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;display:block">
+            <sc-if value="{{ p.hasSlides }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:#ebebe8;pointer-events:none"></div></sc-if>
+            <sc-for list="{{ p.slides }}" as="s" hint-placeholder-count="0"><img src="{{ s.src }}" alt="" style="{{ s.style }}"></sc-for>
+          </div>
+          <div onClick="{{ p.open }}" style="display:grid;grid-template-columns:1fr auto;gap:4px 16px;cursor:pointer" style-hover="color:oklch(0.52 0.12 40)">
+            <h3 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-0.015em">{{ p.name }} <span style="font-weight:400">→</span></h3>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68;padding-top:5px;text-align:right">{{ p.tag }}</span>
+            <span style="font-size:15px;color:#6a6a68">{{ p.place }}</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68;text-align:right">{{ p.catLabel }}</span>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </sc-if>
+  <sc-if value="{{ isIndex }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ visible }}" as="p" hint-placeholder-count="8">
+        <div onClick="{{ p.open }}" style="{{ idxRow }}" style-hover="background:#ebebe8">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68">{{ p.num }}</span>
+          <span style="font-size:clamp(17px,1.8vw,22px);font-weight:500;letter-spacing:-0.015em">{{ p.name }}</span>
+          <span style="{{ idxPlace }}">{{ p.place }}</span>
+          <span style="{{ idxCat }}">{{ p.catLabel }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right">{{ p.tag }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+</section>
+
+<section id="estudio" data-screen-label="Estudio" style="max-width:1600px;margin:0 auto;padding:clamp(88px,12vw,160px) clamp(20px,4vw,48px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,80px);border-top:1px solid #141414;padding-top:36px">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68">{{ t.navStudio }}</span>
+      <div style="position:relative;width:100%;max-width:400px;aspect-ratio:4/5;background:#e7e7e4">
+        <img src="assets2/retrato.jpg" alt="Diego Petrate" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6a6a68;margin-top:-4px">Foto Gaby Herbstein</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <p style="margin:0;font-size:clamp(24px,2.6vw,36px);line-height:1.2;letter-spacing:-0.02em;font-weight:500;text-wrap:pretty">{{ t.bioLead }}</p>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#3b3b3a;max-width:620px;text-wrap:pretty">{{ t.bio1 }}</p>
+      <p style="margin:0;font-size:17px;line-height:1.6;color:#3b3b3a;max-width:620px;text-wrap:pretty">{{ t.bio2 }}</p>
+      <dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:24px;border-top:1px solid #dadad7;padding-top:24px">
+        <sc-for list="{{ t.facts }}" as="f" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:6px"><dt style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68">{{ f.k }}</dt><dd style="margin:0;font-size:15px;line-height:1.45">{{ f.v }}</dd></div>
+        </sc-for>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="trayectoria" data-screen-label="Trayectoria" style="max-width:1600px;margin:0 auto;padding:clamp(88px,12vw,160px) clamp(20px,4vw,48px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,80px);border-top:1px solid #141414;padding-top:36px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68">{{ t.navCareer }} · 1999–2005</span>
+      <h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,40px);line-height:1.05;letter-spacing:-0.025em">Frank Gehry &amp; Partners, Los Angeles</h2>
+      <p style="margin:0;font-size:16px;line-height:1.6;color:#3b3b3a;max-width:460px;text-wrap:pretty">{{ t.gehryText }}</p>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ gehry }}" as="g" hint-placeholder-count="10">
+        <div style="{{ careerRow }}">
+          <span style="font-size:16px;font-weight:500">{{ g.n }}</span>
+          <span style="{{ careerPlace }}">{{ g.p }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68;text-align:right">{{ g.y }}</span>
+        </div>
+      </sc-for>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68;padding:40px 0 8px">{{ t.otherFirms }}</span>
+      <sc-for list="{{ firms }}" as="f" hint-placeholder-count="3">
+        <div style="{{ careerRow }}">
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:500">{{ f.n }}</span><span style="font-size:13px;color:#6a6a68">{{ f.r }}</span></div>
+          <span style="{{ careerPlace }}">{{ f.p }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68;text-align:right">{{ f.y }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="docencia" data-screen-label="Docencia" style="max-width:1600px;margin:0 auto;padding:clamp(88px,12vw,160px) clamp(20px,4vw,48px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,80px);border-top:1px solid #141414;padding-top:36px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68">{{ t.navTeach }}</span>
+      <h2 style="margin:0;font-weight:500;font-size:clamp(26px,3vw,40px);line-height:1.05;letter-spacing:-0.025em;text-wrap:balance">{{ t.teachTitle }}</h2>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ teaching }}" as="x" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:14px 0;border-bottom:1px solid #dadad7">
+          <span style="font-size:16px;font-weight:500">{{ x.n }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68;text-align:right">{{ x.y }}</span>
+          <span style="font-size:14px;color:#6a6a68">{{ x.r }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<footer id="contacto" data-screen-label="Contacto" style="margin-top:clamp(88px,12vw,160px);background:#141414;color:#f5f5f3">
+  <div style="max-width:1600px;margin:0 auto;padding:clamp(64px,9vw,120px) clamp(20px,4vw,48px) 40px;display:flex;flex-direction:column;gap:clamp(40px,6vw,72px)">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a8a8a4">{{ t.contactLead }}</span>
+      <a href="mailto:info@diegopetrate.com" style="color:#f5f5f3;font-weight:500;font-size:clamp(26px,7vw,104px);letter-spacing:-0.04em;line-height:1;word-break:break-word" style-hover="color:oklch(0.74 0.12 40)">info@diegopetrate.com</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;font-size:15px;line-height:1.55">
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a8a8a4">{{ t.navStudio }}</span><span>Migueletes 502<br>C1426 Ciudad de Buenos Aires, Argentina</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a8a8a4">{{ t.phone }}</span><a href="tel:+5492214761900" style="color:#f5f5f3">+54 9 221 476 1900</a><a href="https://wa.me/5492214761900" target="_blank" style="color:#f5f5f3">WhatsApp ↗</a></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a8a8a4">{{ t.downloads }}</span><a href="https://img1.wsimg.com/blobby/go/a2447165-179a-45d7-a1c0-7b1174accdbb/CV_Diego%20Petrate_220825.pdf" target="_blank" style="color:#f5f5f3">{{ t.cv }} ↗</a></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a8a8a4;border-top:1px solid #3a3a39;padding-top:20px">
+      <span>© 2026 Architectures Diego Petrate</span>
+      <a href="#top" style="color:#a8a8a4">{{ t.top }} ↑</a>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:50;background:rgba(20,20,20,0.5);display:flex;justify-content:flex-end">
+    <aside onClick="{{ stop }}" style="width:min(100%,880px);height:100%;overflow-y:auto;background:#f5f5f3;display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px clamp(20px,3vw,36px);border-bottom:1px solid #dadad7;position:sticky;top:0;background:#f5f5f3;z-index:2">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68">{{ sel.num }} / {{ total }}</span>
+        <div style="display:flex;gap:8px">
+          <button onClick="{{ prev }}" style="height:44px;padding:0 16px;border:1px solid #141414;background:transparent;color:#141414;font:inherit;font-size:14px;cursor:pointer">{{ prevLabel }}</button>
+          <button onClick="{{ next }}" style="height:44px;padding:0 16px;border:1px solid #141414;background:transparent;color:#141414;font:inherit;font-size:14px;cursor:pointer">{{ nextLabel }}</button>
+          <button onClick="{{ close }}" style="height:44px;width:44px;border:none;background:#141414;color:#f5f5f3;font:inherit;font-size:20px;cursor:pointer">×</button>
+        </div>
+      </div>
+      <div style="position:relative;width:100%;aspect-ratio:3/2;background:#e7e7e4;flex-shrink:0">
+        <img src="{{ sel.img }}" alt="{{ sel.name }}" style="position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;display:block">
+        <sc-if value="{{ selHasSlides }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:#ebebe8;pointer-events:none"></div></sc-if>
+        <sc-for list="{{ selSlides }}" as="s" hint-placeholder-count="0"><img src="{{ s.src }}" alt="" style="{{ s.style }}"></sc-for>
+        <div style="position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:6px">
+          <sc-for list="{{ selDots }}" as="d" hint-placeholder-count="0"><button onClick="{{ d.go }}" aria-label="{{ d.label }}" style="{{ d.style }}"></button></sc-for>
+        </div>
+      </div>
+      <div style="padding:clamp(24px,4vw,48px) clamp(20px,3vw,36px) 64px;display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:oklch(0.5 0.12 40)">{{ sel.catLabel }}</span>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(30px,4vw,48px);letter-spacing:-0.035em;line-height:1.02">{{ sel.name }}</h3>
+          <span style="font-size:17px;color:#6a6a68">{{ sel.place }}</span>
+          <sc-if value="{{ sel.hasUrl }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+              <sc-for list="{{ sel.links }}" as="lk" hint-placeholder-count="1">
+                <a href="{{ lk.href }}" target="_blank" rel="noopener" style="padding:12px 20px;background:#141414;color:#f5f5f3;font-size:15px;font-weight:500" style-hover="background:oklch(0.52 0.12 40);color:#f5f5f3">{{ lk.label }} ↗</a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;border-top:1px solid #dadad7;border-bottom:1px solid #dadad7;padding:20px 0">
+          <sc-for list="{{ sel.facts }}" as="f" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#6a6a68">{{ f.k }}</span><span style="font-size:15px;line-height:1.4">{{ f.v }}</span></div>
+          </sc-for>
+        </div>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:#3b3b3a;max-width:640px;text-wrap:pretty">{{ sel.desc }}</p>
+        <sc-if value="{{ showGallery }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid #dadad7;padding-top:28px">
+            <sc-for list="{{ sel.gallery }}" as="g" hint-placeholder-count="4">
+              <img src="{{ g.src }}" alt="" loading="lazy" style="width:auto;height:auto;max-height:clamp(160px,24vw,240px);max-width:100%;flex:0 0 auto;display:block">
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </aside>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;default&quot;:&quot;es&quot;,&quot;tsType&quot;:&quot;'es'|'en'&quot;},&quot;defaultView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;grid&quot;,&quot;index&quot;],&quot;default&quot;:&quot;grid&quot;,&quot;tsType&quot;:&quot;'grid'|'index'&quot;},&quot;rotate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;rotateSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:2,&quot;max&quot;:10,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;default&quot;:4,&quot;tsType&quot;:&quot;number&quot;}}">
+const T = {
+  es: {
+    firm: 'arquitectos', navWork: 'Obras', navStudio: 'Estudio', navCareer: 'Trayectoria', navTeach: 'Docencia', navContact: 'Contacto',
+    heroTitle: 'Arquitectura, interiores y diseño urbano desde Buenos Aires.',
+    heroText: 'Estudio fundado en 2005. Obras construidas en Argentina, Alemania y Estados Unidos, de la vivienda unifamiliar a la torre y el concurso público.',
+    ctaWork: 'Ver obras', heroCap: 'Casa en los Hamptons — Southampton, Nueva York', heroCap2: '640 m² · 6.900 SF',
+    grid: 'Grilla', index: 'Índice', all: 'Todas', projects: 'proyectos',
+    bioLead: 'Diego Petrate (Buenos Aires, 1969) es arquitecto y diseñador. Su trabajo abarca arquitectura, interiores, mobiliario y diseño gráfico.',
+    bio1: 'Se formó en la Universidad Nacional de La Plata, fue estudiante invitado de Enric Miralles y Sir Peter Cook en la Städelschule de Frankfurt y obtuvo su Master of Architecture en UCLA, con Greg Lynn como director de tesis. Becario Fulbright, del Ministerio de Educación de la Nación y del Servicio Austríaco de Intercambio Académico.',
+    bio2: 'Trabajó más de seis años con Frank O. Gehry en edificios, concursos y exposiciones. Desde 2005 dirige Architectures Diego Petrate en Buenos Aires.',
+    facts: [{ k: 'Formación', v: 'M.Arch UCLA · Städelschule · UNLP' }, { k: 'Matrículas', v: 'CPAU · CAPBA · AIA (asociado 1999–2006)' }, { k: 'Idiomas', v: 'Español, inglés · lee italiano, alemán y francés' }],
+    gehryText: 'Arquitecto de diseño, jefe de proyecto y asistente en obras, concursos y exposiciones. En Venice Gateway lideró, junto a Gehry Technologies, una herramienta paramétrica de diseño de fachadas en CATIA V5.',
+    otherFirms: 'Otros estudios',
+    firms: [['Zimmer Gunsul Frasca Partnership', 'Diseñador de proyecto', 'Los Ángeles', '1998'], ['Wolfgang Waldner & Partners · Haibach-Klosa Planungsbüro · Joseph Eisenbach & Partners', 'Consultor en planeamiento y diseño urbano — Hospital Diakonissen, Frankfurt; Plaza del Mercado, Leipzig', 'Frankfurt', '1996–97']],
+    teachTitle: 'Diseño, sistemas de información y teoría de la arquitectura.',
+    contactLead: 'Escribinos para un proyecto nuevo', phone: 'Teléfono', downloads: 'Descargas', cv: 'Curriculum vitae (PDF)', portfolio: 'Portfolio de proyectos (PDF)', top: 'Volver arriba',
+    prev: 'Anterior', next: 'Siguiente', fLoc: 'Ubicación', fStatus: 'Estado', visit: 'Visitar sitio', fArea: 'Superficie', fLaunch: 'Lanzamiento', fWith: 'En colaboración con'
+  },
+  en: {
+    firm: 'architects', navWork: 'Work', navStudio: 'Studio', navCareer: 'Career', navTeach: 'Teaching', navContact: 'Contact',
+    heroTitle: 'Architecture, interiors and urban design from Buenos Aires.',
+    heroText: 'Practice founded in 2005. Built work in Argentina, Germany and the United States, from single-family houses to towers and public competitions.',
+    ctaWork: 'View work', heroCap: 'Hamptons House — Southampton, New York', heroCap2: '6,900 SF · 640 m²',
+    grid: 'Grid', index: 'Index', all: 'All', projects: 'projects',
+    bioLead: 'Diego Petrate (Buenos Aires, 1969) is an architect and designer whose work spans architecture, interiors, furniture and graphic design.',
+    bio1: 'He studied at the National University of La Plata, was a guest student of Enric Miralles and Sir Peter Cook at the Städelschule Frankfurt, and received his Master of Architecture from UCLA with Greg Lynn as thesis advisor. Fulbright scholar, with grants from the Argentine Ministry of Education and the Austrian Academic Exchange Service.',
+    bio2: 'He worked for more than six years with Frank O. Gehry on buildings, competitions and exhibitions. Since 2005 he has led Architectures Diego Petrate in Buenos Aires.',
+    facts: [{ k: 'Education', v: 'M.Arch UCLA · Städelschule · UNLP' }, { k: 'Licenses', v: 'CPAU · CAPBA · AIA (associate 1999–2006)' }, { k: 'Languages', v: 'Spanish, English · reads Italian, German, French' }],
+    gehryText: 'Design architect, job captain and design assistant on buildings, competitions and exhibitions. On Venice Gateway he led, with Gehry Technologies, the development of a parametric façade design tool in CATIA V5.',
+    otherFirms: 'Other firms',
+    firms: [['Zimmer Gunsul Frasca Partnership', 'Project designer', 'Los Angeles', '1998'], ['Wolfgang Waldner & Partners · Haibach-Klosa Planungsbüro · Joseph Eisenbach & Partners', 'Urban planning and design consultant — Diakonissen Hospital, Frankfurt; Leipzig Market Square', 'Frankfurt', '1996–97']],
+    teachTitle: 'Design, information systems and architectural theory.',
+    contactLead: 'Get in touch about a new project', phone: 'Phone', downloads: 'Downloads', cv: 'Curriculum vitae (PDF)', portfolio: 'Project portfolio (PDF)', top: 'Back to top',
+    prev: 'Previous', next: 'Next', fLoc: 'Location', fStatus: 'Status', visit: 'Visit website', fArea: 'Area', fLaunch: 'Launch', fWith: 'In association with'
+  }
+};
+const CATS = { res: ['Residencial', 'Residential'], col: ['Vivienda colectiva', 'Multi-family'], ins: ['Institucional y comercial', 'Institutional & commercial'], urb: ['Urbanismo', 'Urban design'], com: ['Concursos', 'Competitions'], dig: ['Digital', 'Digital'] };
+const HERO = 'https://img1.wsimg.com/isteam/ip/a2447165-179a-45d7-a1c0-7b1174accdbb/WebRes_11%20-%20171%20Great%20Hill%20Rd%2C%20Southampton%20-%20.jpeg';
+const G = (id, n) => Array.from({ length: n }, (_, i) => (['aladelta','arditti','cini','ciudad','cuaderno','gobierno','hamptons'].indexOf(id) >= 0 ? 'assets1/' : 'assets2/') + id + '-' + (i + 1) + '.jpg');
+const P = [
+  { id: 'cuaderno', n: ['Cuaderno de Obra', 'Project Logbook'], pl: ['Aplicación web y móvil', 'Web & mobile app'], tag: ['App', 'App'], st: ['Publicada · Android, iOS, PC y Mac', 'Released · Android, iOS, PC & Mac'], cat: 'dig', url: 'https://cuaderno-de-obra.com/', launch: ['Septiembre 2026', 'September 2026'], links: [['Google Play', 'https://play.google.com/store/apps/details?id=com.diegopetrate.cuadernodeobra'], ['App Store', 'https://apps.apple.com/ar/app/cuaderno-de-obra/id6801928214'], ['PC / Mac', 'https://projectlogbook.netlify.app/']], gal: { es: Array.from({ length: 10 }, (_, i) => 'assets1/cuaderno-es-' + (i + 1) + '.png'), en: Array.from({ length: 10 }, (_, i) => 'assets1/cuaderno-en-' + (i + 1) + '.png') },
+    d: ['Nodo colaborativo de obra digital desarrollado por el estudio. Cada proyecto tiene su propia app: cronograma, fotos, documentos, contabilidad, avance y cierre en un solo lugar, compartidos con el cliente y el equipo. Reemplaza a Google Drive, Dropbox y WhatsApp: evita la información dispersa que nadie encuentra con un registro continuo y en tiempo real de cada proyecto.', 'A collaborative digital site hub developed by the studio. Each project gets its own app: schedule, photos, documents, accounting, progress and close-out in one place, shared with the client and the team. It replaces Google Drive, Dropbox and WhatsApp: instead of scattered information nobody can find, a continuous, real-time record of every project.'] },
+  { id: 'hamptons', n: ['Casa en los Hamptons', 'Hamptons House'], pl: ['Southampton, Nueva York', 'Southampton, New York'], tag: ['Construida', 'Built'], st: ['Construida', 'Built'], cat: 'res', sf: 6900, m2: 640, img: 'assets2/hamptons-v2-1.jpg', gal: Array.from({ length: 6 }, (_, i) => 'assets2/hamptons-v2-' + (i + 2) + '.jpg'),
+    d: ['Refugio de verano y fin de semana en el centro de un amplio terreno rodeado de bosque. Grandes ventanales abren vistas en 360° y llevan el paisaje al interior. Pensada como una casa compacta y funcional, aprovecha cada metro cuadrado. El revestimiento de cedro natural combina direcciones horizontales y verticales y genera un ritmo que dialoga con el paisaje: la geometría precisa de la fachada contrasta con la fluidez orgánica del jardín y el bosque. Adentro, superficies blancas y pisos de madera crean una atmósfera calma; el estar se abre a la galería y la piscina, y el dormitorio principal tiene una terraza privada elevada sobre el terreno.', 'Nestled in the landscape of Southampton, this summer and weekend retreat sits at the center of a large, forest-surrounded property, with 360° views through expansive windows that draw nature inside. Designed as a compact, functional home, it makes efficient use of every square meter. Its natural cedar exterior combines horizontal and vertical orientations, creating a rhythm that engages with the landscape; the precise geometry of the façade contrasts with the organic fluidity of garden and forest. Inside, white surfaces and wood floors establish a calm atmosphere. The living space opens onto the porch and pool, and the primary bedroom has a private terrace raised above the terrain.'] },
+  { id: 'strub', n: ['Strub Vinothek', 'Strub Vinothek'], pl: ['Nierstein, Alemania', 'Nierstein, Germany'], tag: ['Construida', 'Built'], st: ['Construida', 'Built'], cat: 'res', sf: 5200, m2: 480, w: 'Fabian Lange Architect · Mann + Schneeberger Architekten (dirección técnica)', img: G('strub', 5)[0], gal: G('strub', 5).slice(1),
+    d: ['Un conjunto que reúne cultura del vino, hospitalidad y vida doméstica, donde conviven historia y expresión contemporánea. En el centro de Nierstein, reinterpreta la tipología de la aldea alemana combinando lo antiguo y lo nuevo con una tensión deliberada y armónica. El edificio principal aloja la sala de degustación y venta directa; un granero restaurado se transforma en espacio flexible para eventos. Sobre estas funciones públicas se despliega la residencia del productor, inspirada en la casa de campo alemana y reinterpretada con un gesto expresionista: ventanas de marcos acentuados y ángulos cambiantes animan la fachada.', 'An ensemble that brings together wine culture, hospitality and domestic life, where history and contemporary expression coexist. In the heart of Nierstein, it reinterprets traditional German village typologies, combining old and new with deliberate, harmonious tension. The main building houses the tasting room and direct sales; a restored barn becomes a flexible event space. Above these public functions unfolds the wine producer’s residence, inspired by the German farmhouse and reinterpreted through an expressionist gesture: windows with accentuated frames and shifting angles animate the façade, supported by a material language that bridges the vernacular and the innovative.'] },
+  { id: 'isadora', n: ['Torre Olazábal 2258 · Isadora', 'Olazábal 2258 Tower · Isadora'], pl: ['Belgrano, Buenos Aires', 'Belgrano, Buenos Aires'], tag: ['Construida', 'Built'], st: ['Construida · dirección de obra', 'Built · construction director'], cat: 'col', sf: 52000, m2: 4830, w: 'RSK Proyectos Urbanos', img: G('isadora', 5)[0], gal: G('isadora', 5).slice(1),
+    d: ['Torre residencial de 15 pisos con dos subsuelos de estacionamiento y cochera comercial, en un lote de 22 × 43 m en Belgrano, donde casas históricas conviven con desarrollos contemporáneos. Como director de obra coordiné la ejecución completa: calidad técnica, resolución constructiva y cumplimiento de plazos. Ofrece piscina, solárium, gimnasio, parrillas, SUM, área de juegos y lavadero, con seguridad 24 h y grupo electrógeno. El hall de acceso, en madera, espejo y granito, se completa con cerramientos de vidrio y aluminio.', 'A 15-story residential tower with two basement levels for parking and a commercial garage, on a 22-by-43-meter lot in Belgrano, where historic houses coexist with contemporary developments. As construction director I coordinated the full execution, ensuring technical quality, proper construction resolution and adherence to deadlines. Amenities include a pool, solarium, gym, barbecue areas, multipurpose room, children’s play area and laundry, with 24-hour security and a generator. The entrance hall, in wood, mirror and granite, is completed with glass and aluminum enclosures.'] },
+  { id: 'holdit', n: ['Hold It Contemporary Home', 'Hold It Contemporary Home'], pl: ['San Diego, California', 'San Diego, California'], tag: ['Proyecto', 'Project'], st: ['Proyecto · diseño comercial', 'Project · retail design'], cat: 'ins', img: G('holdit', 6)[0], gal: G('holdit', 6).slice(1),
+    d: ['Renovación integral de un local comercial que reorganiza circulación, exhibición y atención para lograr una experiencia más clara, cálida y contemporánea. Trabaja dentro de una gran planta existente con nuevos tabiques, cielorrasos suspendidos y luminarias, sin alterar la estructura. La combinación de cielorrasos —paneles de madera, bandejas de yeso y estructuras metálicas para colgar luminarias— organiza el espacio y da identidad a cada sector: Design Center, Sleep Center y áreas de exhibición. Se completa con detalles y muebles a medida: estanterías, exhibidores, mesas y un nuevo mostrador.', 'A comprehensive renovation of a commercial space, reorganizing circulation, display areas and customer service zones to create a clearer, warmer and more contemporary experience. The intervention works within a large existing floor plan, adding partitions, suspended ceilings and lighting that redefine the atmosphere without altering the main structure. A combination of ceiling systems — wood panels, gypsum trays and metal structures for hanging fixtures — organizes the space and gives each sector its own identity: the Design Center, the Sleep Center and the general exhibition areas. Custom details and furniture — shelving, chair racks, design tables and a new service counter — provide material coherence.'] },
+  { id: 'nativa', n: ['Fachada Nativa Interiors', 'Nativa Interiors Façade'], pl: ['La Jolla, San Diego', 'La Jolla, San Diego'], tag: ['Proyecto', 'Project'], st: ['Proyecto · diseño comercial', 'Project · retail design'], cat: 'ins', img: G('nativa', 5)[0], gal: G('nativa', 5).slice(1),
+    d: ['Actualización contemporánea de una fachada comercial inspirada en la tradición parisina de frentes de madera. Conserva la calidez del material como tema central, reinterpretado con un lenguaje preciso que refuerza la presencia urbana del local. Es un sistema modular: un bastidor de acero cromado de 4 × 4 pulgadas que aloja paneles de vidrio aislante con capas internas de madera, generando reflejos, texturas y transparencias. Durable, de mantenimiento simple y con un montaje que respeta la estructura existente.', 'A contemporary update to a storefront, inspired by the tradition of Parisian wooden shopfronts. It preserves material warmth as its central theme, reinterpreted through a precise, modern language that strengthens the store’s urban presence. The façade is a modular system: a 4×4-inch chromed steel frame holding insulated glass panels with internal layers of wood, creating a play of reflections, textures and transparencies. Durable, easy to maintain and installed with respect for the existing structure.'] },
+  { id: 'ciudad', n: ['Ciudad Consciente', 'Ciudad Consciente'], pl: ['Pilar, Argentina', 'Pilar, Argentina'], tag: ['Anteproyecto', 'Schematic design'], st: ['Anteproyecto', 'Schematic design'], cat: 'urb', img: G('ciudad', 5)[0], gal: G('ciudad', 5).slice(1),
+    d: ['Desarrollo urbano concebido como un ecosistema integrado, sustentable y holístico para el bienestar físico, emocional y espiritual. Combina urbanismo contemporáneo, arquitectura bioclimática, energías renovables y vida consciente. Se organiza en torno al río Luján, cuyos 11 km de costa se recuperan con restauración ecológica, acceso público, recorridos, miradores y movilidad sustentable. El plan prioriza compacidad, usos mixtos, caminabilidad, ciclovías, transporte público y corredores verdes, e incluye vivienda, educación, salud, coworking, huertas, agricultura regenerativa, deporte, hotelería y cultura.', 'An urban development conceived as an integrated, sustainable and holistic ecosystem that promotes physical, emotional and spiritual well-being. It combines contemporary urban planning, bioclimatic architecture, renewable energy and mindful living. The project is organized around the Luján River, whose 11 km shoreline is revitalized through ecological restoration, public access, recreational paths, viewpoints and sustainable mobility. The plan prioritizes compactness, mixed uses, walkability, cycling, public transportation and green corridors, and includes housing, education, health, coworking, community gardens, regenerative agriculture, sports, boutique lodging and cultural amenities.'] },
+  { id: 'pabellon', n: ['Pabellón Argentino Expo 2023', 'Argentine Pavilion Expo 2023'], pl: ['San Martín, Argentina', 'San Martín, Argentina'], tag: ['Concurso', 'Competition'], st: ['Concurso', 'Competition'], cat: 'com', img: G('pabellon', 5)[0], gal: G('pabellon', 5).slice(1),
+    d: ['Propuesta de concurso concebida como un volumen transparente que conecta el boulevard con el lago. Las exposiciones ocupan una gran planta alta flexible, mientras la planta baja, abierta al exterior, aloja usos públicos: sala inmersiva, auditorio, talleres y café. El edificio se apoya en una secuencia de pórticos de 18 m que evocan las 24 provincias. La gran cúpula es visible desde la Avenida General Paz. La sustentabilidad se resuelve con control solar, pieles activas, vegetación nativa y paneles fotovoltaicos.', 'A competition entry conceived as a transparent volume connecting the boulevard with the lake. Exhibitions occupy a large, flexible upper floor, while the ground floor — open to the exterior — houses public uses: immersive room, auditorium, workshops and café. The building rests on a sequence of 18-meter porticos whose rhythm is associated with the 24 provinces. The large dome is visible from General Paz Avenue. Sustainability is addressed through solar control, active skins, native vegetation and photovoltaic panels.'] },
+  { id: 'tollan', n: ['Centro Cultural Tollan', 'Tollan Cultural Center'], pl: ['Guanajuato, México', 'Guanajuato, Mexico'], tag: ['Proyecto', 'Project'], st: ['Proyecto', 'Project'], cat: 'ins', img: G('tollan', 4)[0], gal: G('tollan', 4).slice(1),
+    d: ['Un espacio inmerso en las montañas de Guanajuato donde naturaleza, espiritualidad y tradición ancestral se integran. Un conjunto de edificios y áreas ceremoniales responde a la topografía y acompaña la experiencia del visitante. Incluye un gran salón ceremonial, aulas, talleres, dormitorios y espacios compartidos en torno a patios, terrazas y huertas que promueven la autosuficiencia. Incorpora captación de agua de lluvia, energías renovables, sistemas bioclimáticos, flora nativa y materiales del territorio.', 'An architectural space immersed in the mountains of Guanajuato, where nature, spirituality and ancestral tradition come together. A collection of buildings and ceremonial areas responds to the topography, creating a sequence of spaces that accompanies the visitor’s experience. It includes a large ceremonial hall, classrooms, workshops, dormitories and shared spaces around courtyards, terraces and productive gardens that promote self-sufficiency. Rainwater harvesting, renewable energy, bioclimatic systems, native flora and local materials reinforce an architecture of contemplation and community.'] },
+  { id: 'montigny', n: ['Sala de degustación Montigny', 'Montigny Tasting Room'], pl: ['Bretzenheim, Alemania', 'Bretzenheim, Germany'], tag: ['Proyecto', 'Project'], st: ['Proyecto', 'Project'], cat: 'ins', sf: 2580, m2: 240, w: 'Fabian Lange Architect', img: G('montigny', 3)[0], gal: G('montigny', 3).slice(1),
+    d: ['Un pabellón de vidrio escultórico y fluido que recibe a los visitantes en el acceso a la bodega, como un umbral transparente entre el paisaje y el mundo del vino. Sus muros curvos evocan la fluidez de los líquidos y contrastan con la solidez de viñedos y edificios de producción. En 240 m² dedicados a degustación y venta, el interior reúne una barra generosa, áreas de servicio y una planta abierta y flexible para distintas escalas de encuentro.', 'A sculptural, fluid glass pavilion that welcomes visitors at the entrance to the estate, acting as a transparent threshold between the landscape and the world of winemaking. Its curving glass walls evoke the fluid nature of liquids — and wine in particular — contrasting with the solidity of the vineyards and production buildings. With 240 m² for tasting and sales, the interior includes a generous bar, service areas and an open, flexible layout for gatherings of different scales.'] },
+  { id: 'menajem', n: ['Centro Cultural Or Menajem', 'Or Menajem Cultural Center'], pl: ['Belgrano, Buenos Aires', 'Belgrano, Buenos Aires'], tag: ['Finalista', 'Finalist'], st: ['Concurso privado · finalista', 'Private competition · finalist'], cat: 'com', sf: 89000, m2: 8270, w: 'Grinberg Dwek Iglesias Arquitectos', img: G('menajem', 6)[0], gal: G('menajem', 6).slice(1),
+    d: ['Concebido como un pequeño campus: el programa se reparte en varios edificios unidos por un paseo peatonal. El Shul da a la calle Villanueva como volumen exento, junto al Bet Hamidrash, la sinagoga diaria y el centro de mujeres; sobre Maure, un segundo edificio aloja jardín de infantes, biblioteca y administración, todo vinculado por una plaza central. La plaza tiene un jardín hundido de 12 × 12 m que ilumina el subsuelo de salones y mikves. Geometrías fuertes y piedra, con pequeñas aberturas que filtran la luz; el Shul es un volumen de madera dentro de una envolvente de piedra.', 'Conceived as a small campus, the program is organized into several buildings connected by a pedestrian promenade. The Shul faces Villanueva Street as a free-standing volume, paired with the Bet Hamidrash, the daily synagogue and the women’s center; on Maure Street a second building houses the kindergarten, library and administration, all linked through a central plaza. The plaza contains a 12×12 m sunken garden that brings light to the basement event halls and mikvehs. Strong geometries and stone surfaces with small openings filter natural light; the Shul is a precise wooden volume inside a stone shell.'] },
+  { id: 'lezama', n: ['Viviendas Sindicato de Electricistas', 'Electricians’ Union Housing'], pl: ['Parque Lezama, Buenos Aires', 'Parque Lezama, Buenos Aires'], tag: ['Construida', 'Built'], st: ['Construida', 'Built'], cat: 'col', sf: 150000, m2: 13940, w: 'Grinberg Dwek Iglesias Arquitectos', img: 'assets2/lezama-v2-1.jpg', gal: ['assets2/lezama-v2-2.jpg', 'assets2/lezama-v2-3.jpg', 'assets2/lezama-v2-4.jpg', 'assets2/lezama-v2-5.jpg'],
+    d: ['En un terreno pasante se crea una nueva calle: un paseo urbano que conecta el Parque Lezama con el barrio y da acceso y espacios comunes a un conjunto de 125 departamentos para los miembros del Sindicato de Electricistas. Vivienda popular que suma a la ciudad de Buenos Aires un conjunto urbano de calidad.', 'A new street is created across a through-block site: an urban walkway that connects Parque Lezama with the neighborhood and gives access and shared spaces to a complex of 125 apartments for members of the Electricians’ Union. Social housing that adds a high-quality urban ensemble to the city of Buenos Aires.'] },
+  { id: 'gobierno', n: ['Centro de Gobierno de Buenos Aires', 'Buenos Aires Government Center'], pl: ['Barracas, Buenos Aires', 'Barracas, Buenos Aires'], tag: ['1º premio', '1st prize'], st: ['Concurso · primer premio', 'Competition · first prize'], cat: 'com', sf: 1100000, m2: 102200, w: 'Grinberg Dwek Iglesias Arquitectos', img: 'assets1/gobierno-v2-1.jpg', gal: ['assets1/gobierno-v2-2.jpg', 'assets1/gobierno-v2-3.jpg', 'assets1/gobierno-v2-4.jpg', 'assets1/gobierno-v2-5.jpg'],
+    d: ['Primer premio en el concurso para la nueva sede de gobierno y oficinas de la Ciudad de Buenos Aires. El proyecto asume la responsabilidad de generar una nueva centralidad en la ciudad con un edificio de fuerte lenguaje contemporáneo y neto carácter institucional, que entiende la morfología del sitio y lo materializa como una masa construida: una manera de construir más Buenos Aires, con una piel continua sobre la Av. Amancio Alcorta y los bordes contra el Borda. Ocupar el predio en forma integral permite minimizar la altura y horadar la masa en función del paisaje existente, el espacio urbano y la luz natural. Dentro de la piel de parasoles de hormigón se disponen dos edificios, uno al norte y otro al sur, articulados por una plaza central —verdadera plaza cívica caracterizada por los ombúes existentes— a la que se llega por una escalinata de fuerte carácter urbano y desde la que se accede a ambos edificios.', 'First prize in the competition for the new town hall and offices of the City of Buenos Aires. The project takes on the task of creating a new center for the city with a building of strong contemporary language and clear institutional character, one that reads the morphology of the site and gives it form as a built mass: a way of building more Buenos Aires, with a continuous skin along Av. Amancio Alcorta and the edges facing the Borda. Occupying the whole site keeps the height low and lets the mass be carved out in response to the existing landscape, the urban space and daylight. Inside the skin of concrete sunshades sit two buildings, one to the north and one to the south, joined by a central plaza — a true civic square defined by its existing ombú trees — reached by a broad urban stair and giving access to both buildings.'] },
+  { id: 'aladelta', n: ['Complejo Teleférico Ala Delta', 'Ala Delta Cable Car Complex'], pl: ['Salta, Argentina', 'Salta, Argentina'], tag: ['2º premio', '2nd prize'], st: ['Concurso nacional · segundo premio', 'National competition · second prize'], cat: 'com', w: 'Grinberg Dwek Iglesias Arquitectos', img: 'assets1/aladelta-2.jpg', gal: ['assets1/aladelta-1.jpg', 'assets1/aladelta-3.jpg', 'assets1/aladelta-4.jpg'],
+    d: ['Segundo premio en el concurso nacional para el complejo del teleférico en la cumbre del cerro Ala Delta. Un plato circular de 48 metros de diámetro, levemente inclinado hacia el este, se apoya sobre la cima como una marca clara en el paisaje. Su cubierta, accesible por una rampa que sigue la geometría del edificio, es mirador al sudoeste y pista de despegue y aterrizaje de alas delta al este. Debajo, a nivel de llegada del teleférico, la confitería, los locales y las terrazas abren vistas panorámicas en tres direcciones. Los dos árboles existentes se conservan en un patio central que perfora la cubierta y dialoga con el cielo. Desde este núcleo parten el canopy, los circuitos de mountain bike y de senderismo, sobre un paisaje que se preserva y se restaura con especies nativas.', 'Second prize in the national competition for the cable car complex on the summit of Ala Delta hill. A circular disc 48 meters across, tilted slightly to the east, rests on the hilltop as a clear mark in the landscape. Its roof, reached by a ramp that follows the building’s geometry, is a lookout to the southwest and a hang-gliding launch and landing deck to the east. Below, at the cable car arrival level, a café, shops and terraces open panoramic views in three directions. The two existing trees are kept in a central courtyard that pierces the roof and opens to the sky. From this hub start the zip line and the mountain bike and hiking circuits, across a landscape preserved and restored with native species.'] },
+  { id: 'cini', n: ['Casa Cini-Ivanov', 'Cini-Ivanov House'], pl: ['Gonnet, Argentina', 'Gonnet, Argentina'], tag: ['Construida', 'Built'], st: ['Construida', 'Built'], cat: 'res', sf: 2580, m2: 240, img: G('cini', 6)[0], gal: G('cini', 6).slice(1),
+    d: ['Vivienda unifamiliar de 240 m² que incluye un consultorio dermatológico, en un lote extremadamente angosto y alargado. El proyecto equilibra tres objetivos: diversidad espacial, privacidad para la familia y accesibilidad y autonomía para el área profesional. La casa se organiza como una secuencia de volúmenes de revoque blanco que se despliegan a lo largo del terreno, con transiciones fluidas y espacios cálidos y luminosos de atmósferas distintas.', 'A 240 m² single-family residence that also includes a dermatology office, on an extremely narrow and elongated lot. The project balances three objectives: spatial diversity, privacy for the family, and accessibility and autonomy for the professional area. The house is organized as a sequence of white stucco volumes that unfold along the site, generating fluid transitions and a succession of warm, bright spaces with distinctly different atmospheres.'] },
+  { id: 'arditti', n: ['Casa Arditti-Wynne', 'Arditti-Wynne House'], pl: ['City Bell, Argentina', 'City Bell, Argentina'], tag: ['Construida', 'Built'], st: ['Construida', 'Built'], cat: 'res', sf: 2770, m2: 257, img: G('arditti', 6)[0], gal: G('arditti', 6).slice(1),
+    d: ['Borges recuerda que, según Gibbon, en el Corán no hay camellos: lo verdaderamente local no siempre aparece en rasgos obvios, sino en la estructura profunda de una obra. Con ese razonamiento, la casa usa ladrillos artesanales, imperfectos y desparejos, no sólo como material sino como módulo constructivo y generador espacial: en planta, una grilla cartesiana a medida que ordena el espacio con sus unidades y juntas. Bloques mayores representan cada función —estar, dormitorios, estudio, servicios— y su masa se modela por desplazamientos, choques, apilamientos y fusiones, en un equilibrio dinámico entre orden y libertad.', 'Borges recalls Gibbon’s observation that the Qur’an never mentions camels: what is truly local does not always appear through obvious traits, but through the deeper structure of a work. Following that reasoning, this house uses handcrafted bricks — imperfect and uneven — not only as a material but as a construction module and spatial generator: in plan, a customized Cartesian grid that organizes space through its units and joints. Larger blocks represent each function — living, bedrooms, studio, services — and their mass is shaped through shifts, collisions, stackings and fusions, a dynamic balance between order and freedom.'] }
+];
+const GEHRY = [
+  ['Walt Disney Concert Hall', 'Los Angeles', '2003'], ['Jay Pritzker Pavilion', 'Chicago', '2004'], ['Beekman Tower', 'New York', ''],
+  ['New World Symphony', 'Miami', ''], ['Le Clos Jordan Winery', 'Ontario', ''], ['InterActiveCorp HQ', 'New York', '2005'],
+  ['Venice Gateway', 'Venezia', ''], ['MARTa Herford', 'Herford', '2005'], ['Peter B. Lewis Building, CWRU', 'Cleveland', '2002'],
+  ['Corcoran Gallery addition', 'Washington D.C.', ''], ['Frank Gehry, Architect — Guggenheim', 'New York', '2001'], ['New York Times HQ competition', 'New York', '']
+];
+const TEACH = {
+  es: [['Universidad Torcuato Di Tella', 'Profesor · Sistemas de información en arquitectura', '2009–'], ['Universidad Nacional de La Plata', 'Profesor · Teoría de la arquitectura', '2010–'], ['University of Toronto', 'Taller visitante “Coding and Decoding the Contemporary City”', '2008–13'], ['SCI-Arc, Los Angeles', 'Docente de posgrado · diseño, materiales y fabricación digital', '2003–06'], ['University of Utah', 'Profesor asociado visitante', '2005'], ['UCLA', 'Asistente docente · M.Arch I Design Studio', '1998'], ['Städelschule Frankfurt', 'Asistente del Prof. Enric Miralles', '1996–97']],
+  en: [['Torcuato Di Tella University', 'Professor · Information Systems in Architecture', '2009–'], ['National University of La Plata', 'Professor · Theory of Architecture', '2010–'], ['University of Toronto', 'Visiting studio “Coding and Decoding the Contemporary City”', '2008–13'], ['SCI-Arc, Los Angeles', 'Graduate faculty · design, materials and digital fabrication', '2003–06'], ['University of Utah', 'Visiting Associate Professor', '2005'], ['UCLA', 'Teaching Assistant · M.Arch I Design Studio', '1998'], ['Städelschule Frankfurt', 'Assistant to Prof. Enric Miralles', '1996–97']]
+};
+const MONO = "'IBM Plex Mono',monospace";
+const toggle = (on) => ({ height: 32, padding: '0 12px', border: 'none', background: on ? '#141414' : 'transparent', color: on ? '#f5f5f3' : '#141414', fontFamily: MONO, fontSize: 12, cursor: 'pointer' });
+const chip = (on) => ({ height: 34, padding: '0 14px', border: '1px solid ' + (on ? '#141414' : '#c9c9c5'), background: on ? '#141414' : 'transparent', color: on ? '#f5f5f3' : '#141414', fontFamily: "'Hanken Grotesk',Helvetica,sans-serif", fontSize: 14, cursor: 'pointer', borderRadius: 999 });
+
+class Component extends DCLogic {
+  state = { lang: this.props.lang ?? 'es', view: this.props.defaultView ?? 'grid', cat: 'all', sel: null, tick: 0, slide: 0, w: typeof window !== 'undefined' ? window.innerWidth : 1200, menu: false };
+  componentDidMount() {
+    this._k = (e) => {
+      if (this.state.sel == null) return;
+      if (e.key === 'Escape') this.setState({ sel: null });
+      if (e.key === 'ArrowRight') this.step(1);
+      if (e.key === 'ArrowLeft') this.step(-1);
+    };
+    window.addEventListener('keydown', this._k);
+    this._r = () => this.setState({ w: window.innerWidth, menu: window.innerWidth < 760 && this.state.menu }); window.addEventListener('resize', this._r);
+    const secs = this.props.rotateSeconds ?? 4;
+    this._iv = setInterval(() => this.setState(s => ({ tick: s.tick + 1, slide: s.sel != null && (s.tick + 1) % secs === 0 ? s.slide + 1 : s.slide })), 1000);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._k); window.removeEventListener('resize', this._r); clearInterval(this._iv); }
+  gl(p) { const g = p.gal; if (!g || Array.isArray(g)) return g; return g[this.state.lang] || g.es; }
+  slides(p0) { const g = this.gl(p0); const p = { img: p0.img || (p0.gal && !Array.isArray(p0.gal) ? g[0] : undefined), gal: g }; return p.gal ? (p.img && p.img !== p.gal[0] ? [p.img].concat(p.gal) : p.gal) : []; }
+  layer(src, on) { return { src, style: { position: 'absolute', inset: 0, margin: 'auto', width: 'auto', height: 'auto', maxWidth: '100%', maxHeight: '100%', display: 'block', pointerEvents: 'none', opacity: on ? 1 : 0, transition: 'opacity 1.1s ease' } }; }
+  componentDidUpdate() { document.body.style.overflow = this.state.sel != null || this.state.menu ? 'hidden' : ''; }
+  list() { return P.filter(p => this.state.cat === 'all' || p.cat === this.state.cat); }
+  step(d) {
+    const l = this.list(); const i = l.findIndex(p => p.id === this.state.sel);
+    this.setState({ sel: l[(i + d + l.length) % l.length].id, slide: 0 });
+  }
+  area(p, L) {
+    if (!p.m2) return '—';
+    const loc = L === 0 ? 'es-AR' : 'en-US';
+    const m = p.m2.toLocaleString(loc) + ' m²', s = p.sf.toLocaleString(loc) + ' SF';
+    return L === 0 ? m + ' · ' + s : s + ' · ' + m;
+  }
+  renderVals() {
+    const lang = this.state.lang, L = lang === 'es' ? 0 : 1, t = T[lang];
+    const vis = this.list(); const rot = this.props.rotate ?? true; const secs = this.props.rotateSeconds ?? 4;
+    const map = (p, i) => ({
+      slot: 'obra-' + p.id, img: p.img || (p.gal && !Array.isArray(p.gal) ? this.gl(p)[0] : undefined), gallery: (() => { const g = this.gl(p) || []; return (Array.isArray(p.gal) ? g : g.slice(1)).map(src => ({ src })); })(), hasGallery: !!(this.gl(p) && this.gl(p).length), ph: p.n[0] + ' — foto', num: String(i + 1).padStart(2, '0'),
+      name: p.n[L], place: p.pl[L], tag: p.tag[L], catLabel: CATS[p.cat][L], desc: p.d[L],
+      facts: [{ k: t.fLoc, v: p.pl[L] }, { k: t.fStatus, v: p.st[L] }, p.launch ? { k: t.fLaunch, v: p.launch[L] } : { k: t.fArea, v: this.area(p, L) }].concat(p.w ? [{ k: t.fWith, v: p.w }] : []),
+      slides: rot ? (() => { const s = this.slides(p); const k = Math.floor((this.state.tick + i * 2) / secs) % (s.length || 1); return s.map((src, j) => this.layer(src, j === k)); })() : [],
+      url: p.url || '', hasUrl: !!p.url, links: (p.url ? [{ label: t.visit, href: p.url }] : []).concat((p.links || []).map(([label, href]) => ({ label, href }))),
+      hasSlides: rot && this.slides(p).length > 0,
+      open: () => this.setState({ sel: p.id, slide: 0 })
+    });
+    const visible = vis.map(map);
+    const si = vis.findIndex(p => p.id === this.state.sel);
+    const filters = [['all', t.all]].concat(Object.keys(CATS).map(k => [k, CATS[k][L]])).map(([k, label]) => ({
+      label, style: chip(this.state.cat === k), onClick: () => this.setState({ cat: k, sel: null })
+    }));
+    const mob = this.state.w < 760;
+    const HERO_IDS = [['hamptons','assets2/hamptons-v2-2.jpg'],['strub'],['ciudad','assets1/ciudad-2.jpg'],['holdit'],['isadora']];
+    const hk = Math.floor(this.state.tick / 4) % HERO_IDS.length;
+    const heroP = HERO_IDS.map(([id, src]) => { const p = P.find(x => x.id === id); return { p, src: src || (p && (p.img || (this.gl(p) || [])[0])) }; }).filter(x => x.p && x.src);
+    const hc = heroP[hk % heroP.length] || heroP[0];
+    const op = this.state.menu;
+    return {
+      heroStyle: { position: 'relative', width: '100%', height: mob ? 'auto' : 'max(480px,calc(100svh - 62px))', aspectRatio: mob ? '3/2' : 'auto', background: '#1c1c1b', overflow: 'hidden' },
+      heroSlides: heroP.map((x, j) => ({ src: x.src, style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: j === hk % heroP.length ? 1 : 0, transition: 'opacity 1.2s ease' } })),
+      heroCapA: hc ? hc.p.n[L] + ' — ' + hc.p.pl[L] : '', heroCapB: hc ? (hc.p.m2 ? this.area(hc.p, L) : hc.p.st[L]) : '',
+      burger: [0, 1, 2].map(i => ({ style: { display: 'block', width: 22, height: 1.5, background: '#141414', transition: 'transform .25s, opacity .25s', transform: op ? (i === 0 ? 'translateY(6.5px) rotate(45deg)' : i === 2 ? 'translateY(-6.5px) rotate(-45deg)' : 'none') : 'none', opacity: op && i === 1 ? 0 : 1 } })),
+      t, filters, visible, mob, desk: !mob, menuOpen: mob && this.state.menu, menuLabel: this.state.menu ? (L ? 'Close' : 'Cerrar') : (L ? 'Menu' : 'Menú'),
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })), closeMenu: () => this.setState({ menu: false }),
+      esBtnL: { ...toggle(lang === 'es'), height: 44, padding: '0 18px' }, enBtnL: { ...toggle(lang === 'en'), height: 44, padding: '0 18px' },
+      idxRow: mob ? { display: 'grid', gridTemplateColumns: '32px minmax(0,1fr) auto', gap: '4px 12px', alignItems: 'baseline', padding: '16px 0', borderBottom: '1px solid #dadad7', cursor: 'pointer' } : { display: 'grid', gridTemplateColumns: '40px minmax(0,2.2fr) minmax(0,1.5fr) minmax(0,1.3fr) minmax(0,1fr)', gap: 16, alignItems: 'baseline', padding: '18px 8px', borderBottom: '1px solid #dadad7', cursor: 'pointer' },
+      careerRow: mob ? { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) auto', gap: '2px 12px', alignItems: 'baseline', padding: '12px 0', borderBottom: '1px solid #dadad7' } : { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,0.8fr) 64px', gap: 16, alignItems: 'baseline', padding: '12px 0', borderBottom: '1px solid #dadad7' },
+      idxPlace: mob ? { display: 'none' } : { fontSize: 15, color: '#6a6a68' }, idxCat: mob ? { display: 'none' } : { fontFamily: MONO, fontSize: 12, color: '#6a6a68' },
+      careerPlace: { fontSize: 14, color: '#6a6a68', order: mob ? 3 : 0 },
+      showGallery: false && !!(si >= 0 && visible[si] && visible[si].hasGallery),
+      prevLabel: mob ? '←' : '← ' + t.prev, nextLabel: mob ? '→' : t.next + ' →',
+      countLabel: String(visible.length).padStart(2, '0') + ' ' + t.projects,
+      isGrid: this.state.view === 'grid', isIndex: this.state.view === 'index',
+      gridBtn: toggle(this.state.view === 'grid'), indexBtn: toggle(this.state.view === 'index'),
+      setGrid: () => this.setState({ view: 'grid' }), setIndex: () => this.setState({ view: 'index' }),
+      esBtn: toggle(lang === 'es'), enBtn: toggle(lang === 'en'),
+      setEs: () => this.setState({ lang: 'es' }), setEn: () => this.setState({ lang: 'en' }),
+      firms: t.firms.map(([n, r, p, y]) => ({ n, r, p, y })),
+      gehry: GEHRY.map(([n, p, y]) => ({ n, p, y: y || '—' })),
+      teaching: TEACH[lang].map(([n, r, y]) => ({ n, r, y })),
+      hasSel: si >= 0,
+      ...(() => {
+        if (si < 0) return { selSlides: [], selDots: [], selHasSlides: false };
+        const s = this.slides(vis[si]); if (s.length < 2) return { selSlides: [], selDots: [], selHasSlides: false };
+        const k = this.state.slide % s.length;
+        return {
+          selHasSlides: true,
+          selSlides: s.map((src, j) => this.layer(src, j === k)),
+          selDots: s.map((_, j) => ({ label: String(j + 1), go: (e) => { e.stopPropagation(); this.setState({ slide: j }); }, style: { width: j === k ? 22 : 8, height: 8, padding: 0, border: 'none', borderRadius: 999, background: j === k ? '#fafaf8' : 'rgba(250,250,248,0.55)', cursor: 'pointer', transition: 'width .3s' } }))
+        };
+      })(), sel: si >= 0 ? visible[si] : {}, total: String(visible.length).padStart(2, '0'),
+      close: () => this.setState({ sel: null }), stop: (e) => e.stopPropagation(),
+      prev: () => this.step(-1), next: () => this.step(1)
+    };
+  }
+}
+</script>
+</body>
+</html>
